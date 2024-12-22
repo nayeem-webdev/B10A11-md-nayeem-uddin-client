@@ -6,6 +6,7 @@ export default {
       colors: {
         primary: "#FF2B85",
         accent: "#6b1b83",
+        google: "#4285f4",
       },
     },
   },

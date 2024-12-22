@@ -69,14 +69,14 @@ const Navbar = ({ isLoggedIn }) => {
           {/* Login/Logout Button */}
           {!isLoggedIn ? (
             <Link
-              to={"/auth-page"}
+              to={"/login"}
               className="bg-primary text-white px-4 py-2 rounded hover:bg-accent transition"
             >
               Login
             </Link>
           ) : (
             <Link
-              to={"/auth-page"}
+              to={"/signup"}
               className="bg-primary text-white px-4 py-2 rounded hover:bg-accent transition"
             >
               Logout
