@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { FaGoogle } from "react-icons/fa";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,7 +10,7 @@ const SignUpPage = () => {
   const [name, setName] = useState(""); // New field for Name
   const [photoURL, setPhotoURL] = useState(""); // New field for Photo URL
   const [loading, setLoading] = useState(false);
-  const { signUpWithGoogle, signUpUser } = useContext(AuthContext);
+  const { signUpUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
@@ -32,16 +31,6 @@ const SignUpPage = () => {
       toast.error("Sign Up failed. Please try again.", error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleGoogleSignUp = async () => {
-    try {
-      await signUpWithGoogle();
-      toast.success("Signed up with Google!");
-      navigate("/dashboard");
-    } catch (error) {
-      toast.error(error, "Failed to sign up with Google.");
     }
   };
 
@@ -153,17 +142,6 @@ const SignUpPage = () => {
             {loading ? "Signing Up..." : "Sign Up"}
           </button>
         </form>
-
-        {/* Google Sign-Up Button */}
-        <div className="mt-4">
-          <button
-            onClick={handleGoogleSignUp}
-            className="w-full bg-google text-white py-2 rounded-md font-medium flex justify-center items-center gap-2 hover:bg-google/70 transition"
-          >
-            <FaGoogle />
-            Sign Up with Google
-          </button>
-        </div>
 
         {/* Link to Login Page */}
         <div className="mt-6 text-center text-sm">
