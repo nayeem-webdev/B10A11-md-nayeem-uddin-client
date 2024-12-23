@@ -2,16 +2,12 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import LottiePlayer from "../components/LottiePlayer";
+import Loading from "../components/Loading";
 
 const PrivateRoutes = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   if (loading) {
-    return (
-      <div className="py-[100px]" height={200} width={200}>
-        <LottiePlayer animationType="cart" />
-      </div>
-    );
+    return <Loading />;
   } else if (user) {
     return children;
   } else {

@@ -4,6 +4,8 @@ import ErrorPage from "../pages/ErrorPage";
 import AddFoodPage from "../components/AddFoodPage";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
+import PrivateRoutes from "./PrivateRoutes";
+import Account from "../pages/Account";
 
 const routes = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const routes = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUpPage />,
+      },
+      {
+        path: "/account",
+        element: (
+          <PrivateRoutes>
+            <Account />
+          </PrivateRoutes>
+        ),
       },
     ],
   },
