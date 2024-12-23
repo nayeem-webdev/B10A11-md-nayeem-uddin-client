@@ -22,7 +22,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/add-food",
-        element: <AddFoodPage />,
+        element: (
+          <PrivateRoutes>
+            <AddFoodPage />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/all-foods",
