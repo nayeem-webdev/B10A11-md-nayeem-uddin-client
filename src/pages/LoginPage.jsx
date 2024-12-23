@@ -1,39 +1,48 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const { loginWithGoogle, loginUser } = useContext(AuthContext);
+  const { loginWithPopUp, loginWithPassword, setUser, loading } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  //  Handle Password Login
+  const handlePasswordLogin = (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      await loginUser(email, password);
-      toast.success("Login Successful");
-      navigate("/dashboard");
-    } catch (error) {
-      toast.error("Login failed. Please check your credentials.", error);
-    } finally {
-      setLoading(false);
-    }
+    const form = e.target;
+    const emailLogin = form.emailLogin.value;
+    const passwordLogin = form.passwordLogin.value;
+    loginWithPassword(emailLogin, passwordLogin)
+      .then((res) => {
+        const usr = res.user;
+        setUser(usr);
+        toast.success("You are Logged in!");
+        navigate("/account");
+      })
+      .catch((err) => {
+        console.log(err.message);
+        toast.error("User Login Failed!");
+      });
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      await loginWithGoogle();
-      toast.success("Logged in with Google!");
-      navigate("/dashboard");
-    } catch (error) {
-      toast.error("Failed to login with Google.", error);
-    }
+  // Google Login
+  const googleProvider = new GoogleAuthProvider();
+  const handleGoogleLogin = () => {
+    loginWithPopUp(googleProvider)
+      .then((res) => {
+        const usr = res.user;
+        setUser(usr);
+        toast.success("You are Logged in!");
+        navigate("/account");
+      })
+      .catch((err) => {
+        console.log(err.message);
+        toast.error("User Login Failed!");
+      });
   };
 
   return (
@@ -42,7 +51,7 @@ const LoginPage = () => {
         <h1 className="text-3xl font-bold text-center mb-6 ">Login</h1>
 
         {/* Login Form */}
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handlePasswordLogin} className="space-y-4">
           <div>
             <label
               htmlFor="email"
@@ -51,12 +60,11 @@ const LoginPage = () => {
               Email Address
             </label>
             <input
-              type="email"
-              id="email"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              id="emailLogin"
+              name="emailLogin"
+              placeholder="Email address"
               required
             />
           </div>
@@ -69,12 +77,11 @@ const LoginPage = () => {
               Password
             </label>
             <input
-              type="password"
-              id="password"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              id="passwordLogin"
+              name="passwordLogin"
+              placeholder="Password"
               required
             />
           </div>
