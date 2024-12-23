@@ -6,6 +6,9 @@ import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import PrivateRoutes from "./PrivateRoutes";
 import Account from "../pages/Account";
+import AllFoods from "../pages/AllFoods";
+import Gallery from "../pages/Gallery";
+import Home from "../pages/Home";
 
 const routes = createBrowserRouter([
   {
@@ -14,8 +17,20 @@ const routes = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        path: "/",
+        element: <Home />,
+      },
+      {
         path: "/add-food",
         element: <AddFoodPage />,
+      },
+      {
+        path: "/all-foods",
+        element: <AllFoods />,
+      },
+      {
+        path: "/gallery",
+        element: <Gallery />,
       },
       {
         path: "/login",
