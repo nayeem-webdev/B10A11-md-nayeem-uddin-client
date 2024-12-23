@@ -26,12 +26,10 @@ const Navbar = ({ isLoggedIn }) => {
           </button>
         </div>
         {/* Logo */}
-        <div className="text-xl font-bold">
-          <Link to={"/"} className="text-primary">
-            Dine
-          </Link>
+        <Link to={"/"} className="text-xl font-bold">
+          <span className="text-primary">Dine</span>
           Flow
-        </div>
+        </Link>
 
         {/* Nav Links */}
         <div className="hidden md:flex space-x-6">
@@ -58,6 +56,14 @@ const Navbar = ({ isLoggedIn }) => {
             }
           >
             Gallery
+          </NavLink>
+          <NavLink
+            to="/account"
+            className={({ isActive }) =>
+              isActive ? "text-primary font-semibold" : " hover:text-primary"
+            }
+          >
+            Account
           </NavLink>
         </div>
 

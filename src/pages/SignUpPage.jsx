@@ -4,33 +4,68 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const SignUpPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [name, setName] = useState(""); // New field for Name
-  const [photoURL, setPhotoURL] = useState(""); // New field for Photo URL
-  const [loading, setLoading] = useState(false);
-  const { signUpUser } = useContext(AuthContext);
+  const { createUser, updateUser, loading } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  // Pass verify
+  const [passFocus, setPassFocus] = useState(false);
+  const [isLong, setIsLong] = useState(false);
+  const [hasUppercase, setHasUppercase] = useState(false);
+  const [hasLowercase, setHasLowercase] = useState(false);
+  const [hasSymbol, setHasSymbol] = useState(false);
 
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match.");
-      setLoading(false);
-      return;
+  const verifyPass = (e) => {
+    const passValue = e.target.value;
+
+    // Check Characters
+    const hasUppercase = /[A-Z]/.test(passValue);
+    const hasLowercase = /[a-z]/.test(passValue);
+    const hasSymbol = /[!@#$%*]/.test(passValue);
+    const isLong = passValue.length >= 8;
+
+    // Check Delete Character
+    setHasUppercase(hasUppercase);
+    setHasLowercase(hasLowercase);
+    setHasSymbol(hasSymbol);
+    setIsLong(isLong);
+
+    // Set Pass Verify
+    if (hasUppercase) {
+      setHasUppercase(true);
     }
+    if (hasLowercase) {
+      setHasLowercase(true);
+    }
+    if (hasSymbol) {
+      setHasSymbol(true);
+    }
+    if (isLong) {
+      setIsLong(true);
+    }
+  };
 
-    try {
-      await signUpUser(email, password, name, photoURL); // Pass the name and photo URL
-      toast.success("Account Created Successfully!");
-      navigate("/dashboard");
-    } catch (error) {
-      toast.error("Sign Up failed. Please try again.", error);
-    } finally {
-      setLoading(false);
+  // Handle Register
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const fullName = form.fullName.value;
+    const photoUrl = form.photoUrl.value;
+    const emailRegister = form.emailRegister.value;
+    const passwordRegister = form.passwordRegister.value;
+
+    if (isLong && hasSymbol && hasLowercase && hasUppercase) {
+      createUser(emailRegister, passwordRegister)
+        .then(() => {
+          updateUser(fullName, photoUrl).then(() => {
+            toast.success("User Register Successful!");
+            navigate("/account");
+          });
+        })
+        .catch((err) => {
+          console.log(err.message);
+          toast.error("User Register Failed!");
+        });
     }
   };
 
@@ -40,7 +75,7 @@ const SignUpPage = () => {
         <h1 className="text-3xl font-bold text-center mb-6  ">Sign Up</h1>
 
         {/* Sign-Up Form */}
-        <form onSubmit={handleSignUp} className="space-y-4">
+        <form onSubmit={handleRegister} className="space-y-4">
           {/* Name Field */}
           <div>
             <label
@@ -50,12 +85,11 @@ const SignUpPage = () => {
               Name
             </label>
             <input
-              type="text"
-              id="name"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
-              placeholder="Enter your full name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              type="text"
+              id="fullName"
+              name="fullName"
+              placeholder="Full Name"
               required
             />
           </div>
@@ -69,12 +103,11 @@ const SignUpPage = () => {
               Photo URL
             </label>
             <input
-              type="url"
-              id="photoURL"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
-              placeholder="Enter your photo URL"
-              value={photoURL}
-              onChange={(e) => setPhotoURL(e.target.value)}
+              type="url"
+              id="photoUrl"
+              name="photoUrl"
+              placeholder="Photo URL"
               required
             />
           </div>
@@ -87,12 +120,11 @@ const SignUpPage = () => {
               Email Address
             </label>
             <input
-              type="email"
-              id="email"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              id="emailRegister"
+              name="emailRegister"
+              placeholder="Email address"
               required
             />
           </div>
@@ -105,34 +137,49 @@ const SignUpPage = () => {
               Password
             </label>
             <input
-              type="password"
-              id="password"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              id="passwordRegister"
+              name="passwordRegister"
+              placeholder="Password"
+              onFocus={() => setPassFocus(true)}
+              onChange={verifyPass}
               required
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700  "
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
-              placeholder="Confirm your password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
-
+          {passFocus && (
+            <ul>
+              <li
+                className={`text-[12px] ${
+                  hasUppercase ? "text-green-600" : "text-red-600"
+                } `}
+              >
+                Must have an uppercase letter.
+              </li>
+              <li
+                className={`text-[12px] ${
+                  hasLowercase ? "text-green-600" : "text-red-600"
+                } `}
+              >
+                Must have a lowercase letter.
+              </li>
+              <li
+                className={`text-[12px] ${
+                  hasSymbol ? "text-green-600" : "text-red-600"
+                } `}
+              >
+                Must have a symbol ! @ # $ % *.
+              </li>
+              <li
+                className={`text-[12px] ${
+                  isLong ? "text-green-600" : "text-red-600"
+                } `}
+              >
+                Must be 8 characters long.
+              </li>
+            </ul>
+          )}
           {/* Sign Up Button */}
           <button
             type="submit"
