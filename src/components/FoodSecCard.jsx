@@ -24,7 +24,7 @@ const FoodSecCard = ({ food }) => {
         <p className="text-gray-600 text-sm">{description}</p>
         <div className="flex justify-between items-center mt-4">
           <span className="text-lg font-bold text-primary">${price}</span>
-          <Link to={`/food-details/${_id}`} className="text-primary text-sm">
+          <Link to={`/food/${_id}`} className="text-primary text-sm">
             <button className="bg-accent text-white px-4 py-2 rounded-lg hover:bg-primary transition duration-300">
               Details
             </button>

@@ -7,6 +7,7 @@ const ProductPage = () => {
     foodName,
     foodImage,
     quantity,
+    purchaseCount,
     category,
     origin,
     price,
@@ -39,7 +40,11 @@ const ProductPage = () => {
               : "bg-red-50 text-red-500 border-red-500 0bg-red-900/80 0text-red-100 0border-red-100"
           }`}
         >
-          {quantity > 0 ? `${quantity} ${" "}Items in Stock` : "Out of Stock"}
+          {quantity > 0
+            ? `Sold Items ${" "}${
+                purchaseCount || 0
+              }${" "} Current Stock ${quantity}`
+            : "Out of Stock"}
         </p>
         <p className="text-sm mb-2 text-black/80 0text-white/80">
           {origin.toUpperCase().replace("-", " ")}
@@ -58,7 +63,7 @@ const ProductPage = () => {
           {description}
         </p>
 
-        <button className="mt-3 w-full  bg-primary text-white py-1 rounded-full hover:bg-primary/70 transition flex justify-center items-center gap-2 font-bold">
+        <button className="mt-3 w-full  bg-primary text-white py-3 rounded-full hover:bg-accent transition flex justify-center items-center gap-2 font-bold">
           ADD TO CART
         </button>
       </div>

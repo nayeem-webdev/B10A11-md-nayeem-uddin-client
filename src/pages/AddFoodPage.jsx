@@ -30,6 +30,7 @@ const AddFoodPage = () => {
       email: email,
       displayName: displayName,
       uid: uid,
+      purchaseCount: 0,
     };
     API.post("/all-foods", foodData)
       .then((response) => console.log("Created Item:", response.data))
