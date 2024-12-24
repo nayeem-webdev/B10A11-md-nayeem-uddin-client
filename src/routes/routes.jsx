@@ -9,6 +9,8 @@ import Account from "../pages/Account";
 import AllFoods from "../pages/AllFoods";
 import Gallery from "../pages/Gallery";
 import Home from "../pages/Home";
+import FoodPage from "../pages/FoodPage";
+import { API } from "../api";
 
 const routes = createBrowserRouter([
   {
@@ -31,6 +33,11 @@ const routes = createBrowserRouter([
       {
         path: "/all-foods",
         element: <AllFoods />,
+      },
+      {
+        path: "/food/:id",
+        element: <FoodPage />,
+        loader: async ({ params }) => API.get(`/food/${params.id}`),
       },
       {
         path: "/gallery",

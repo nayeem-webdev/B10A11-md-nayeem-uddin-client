@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
-import { FaShoppingCart, FaInfoCircle } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const ProductCard = ({ food }) => {
-  const { foodName, foodImage, category, origin, price, description } =
+const FoodCard = ({ food }) => {
+  const { _id, foodName, foodImage, category, origin, price, description } =
     food || {};
   const addToCart = (foodName) => {
     toast.success(`${foodName} added to cart!`);
@@ -31,18 +32,18 @@ const ProductCard = ({ food }) => {
           <div className="flex space-x-2">
             <button
               onClick={() => addToCart(foodName)}
-              className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+              className="bg-primary text-white p-2 rounded-md hover:bg-primary/70"
               title="Add to Cart"
             >
               <FaShoppingCart size={20} />
             </button>
-            <button
-              onClick={() => toast.info(`${foodName} details clicked!`)}
-              className="bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600"
+            <Link
+              to={`/food/${_id}`}
+              className="bg-accent text-white p-2 rounded-md hover:bg-accent/70"
               title="View Details"
             >
-              <FaInfoCircle size={20} />
-            </button>
+              Details
+            </Link>
           </div>
         </div>
       </div>
@@ -50,8 +51,8 @@ const ProductCard = ({ food }) => {
   );
 };
 
-ProductCard.propTypes = {
+FoodCard.propTypes = {
   food: PropTypes.object.isRequired,
 };
 
-export default ProductCard;
+export default FoodCard;

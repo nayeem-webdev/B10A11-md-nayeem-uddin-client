@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Title from "../components/Title";
 import { API } from "../api";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/FoodCard";
 import SearchFilter from "../components/SearchFilter";
 
 const AllFoods = () => {
@@ -26,7 +26,7 @@ const AllFoods = () => {
         pageName="All Foods"
         subHeading="Hungry? order form our wide collection of foods."
       />
-      <SearchFilter products={foods} onFilter={setFilteredFoods} />
+      <SearchFilter foods={foods} setFilteredFoods={setFilteredFoods} />
       {filteredFoods.length > 0 ? (
         <div className="container mx-auto py-16 px-6 min-h-screen grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
           {filteredFoods.map((food) => (

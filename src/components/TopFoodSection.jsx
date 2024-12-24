@@ -16,7 +16,7 @@ const TopFoodsSection = () => {
   }, []);
 
   return (
-    <section className="my-16 px-4">
+    <section className="container mx-auto py-16 px-6 min-h-screen">
       <h2 className="text-3xl font-bold text-center mb-8">Top Foods</h2>
 
       {/* Food Items */}

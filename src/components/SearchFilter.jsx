@@ -1,46 +1,35 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-const SearchFilter = ({ products, onFilter }) => {
+const SearchFilter = ({ foods, setFilteredFoods }) => {
   const [searchText, setSearchText] = useState("");
-  const [priceRange, setPriceRange] = useState(1000); // Default price range
-  const [sortOrder, setSortOrder] = useState(""); // Sorting order: "" | "asc" | "desc"
+  const [priceRange, setPriceRange] = useState(1000);
+  const [sortOrder, setSortOrder] = useState("");
 
   const handleSearch = () => {
-    let filteredProducts = products.filter(
-      (product) =>
-        product.foodName.toLowerCase().includes(searchText.toLowerCase()) &&
-        product.price <= priceRange
+    let filteredFoods = foods.filter(
+      (food) =>
+        food.foodName.toLowerCase().includes(searchText.toLowerCase()) &&
+        food.price <= priceRange
     );
 
-    // Apply sorting
+    // Apply Sort
     if (sortOrder === "asc") {
-      filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+      filteredFoods = filteredFoods.sort((a, b) => a.price - b.price);
     } else if (sortOrder === "desc") {
-      filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+      filteredFoods = filteredFoods.sort((a, b) => b.price - a.price);
     }
 
-    onFilter(filteredProducts);
+    setFilteredFoods(filteredFoods);
   };
 
   return (
-    <div className="p-4 bg-gray-100 rounded-lg shadow-md w-full max-w-lg mx-auto space-y-4">
-      {/* Search Box */}
-      <div>
-        <input
-          type="text"
-          placeholder="Search by product name..."
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-
-      {/* Price Range Filter */}
-      <div>
+    <div className="mt-16 container mx-auto p-4 border-2 border-primary/30 rounded-lg flex flex-wrap gap-4 justify-between items-center">
+      {/* Price Range Func */}
+      <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
         <label
           htmlFor="priceRange"
-          className="block text-sm font-semibold text-gray-700"
+          className="text-sm text-primary font-bold whitespace-nowrap"
         >
           Max Price: ${priceRange}
         </label>
@@ -48,55 +37,58 @@ const SearchFilter = ({ products, onFilter }) => {
           id="priceRange"
           type="range"
           min="0"
-          max="2000"
+          max="1000"
           value={priceRange}
-          onChange={(e) => setPriceRange(Number(e.target.value))}
-          className="w-full"
+          onChange={(e) => setPriceRange(parseInt(e.target.value))}
+          className="w-full md:w-64"
         />
       </div>
 
-      {/* Sort By Price */}
-      <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-2">
-          Sort by Price
-        </label>
-        <div className="flex gap-2">
-          <button
-            onClick={() => {
-              setSortOrder("asc");
-              handleSearch();
-            }}
-            className={`px-4 py-2 rounded-md ${
-              sortOrder === "asc"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            Low to High
-          </button>
-          <button
-            onClick={() => {
-              setSortOrder("desc");
-              handleSearch();
-            }}
-            className={`px-4 py-2 rounded-md ${
-              sortOrder === "desc"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            High to Low
-          </button>
-        </div>
-      </div>
+      {/* Search Func */}
+      <input
+        type="text"
+        placeholder="Search: Product Name"
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+        className="flex-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+      />
 
-      {/* Apply Filters Button */}
-      <div className="text-center">
+      {/* Filter Button */}
+      <button
+        onClick={handleSearch}
+        className="bg-primary text-white px-4 py-2 rounded-md hover:bg-opacity-80 focus:ring-2 focus:ring-primary"
+      >
+        Apply Filters
+      </button>
+
+      {/* Sort Func */}
+      <div className="flex gap-4 items-center">
+        <label className="text-sm text-primary font-bold">Sort by Price:</label>
         <button
-          onClick={handleSearch}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          onClick={() => {
+            setSortOrder("asc");
+            handleSearch();
+          }}
+          className={`px-4 py-2 rounded-md ${
+            sortOrder === "asc"
+              ? "bg-primary text-white"
+              : "bg-gray-200 text-gray-700"
+          }`}
         >
-          Apply Filters
+          Low to High
+        </button>
+        <button
+          onClick={() => {
+            setSortOrder("desc");
+            handleSearch();
+          }}
+          className={`px-4 py-2 rounded-md ${
+            sortOrder === "desc"
+              ? "bg-primary text-white"
+              : "bg-gray-200 text-gray-700"
+          }`}
+        >
+          High to Low
         </button>
       </div>
     </div>
@@ -104,13 +96,8 @@ const SearchFilter = ({ products, onFilter }) => {
 };
 
 SearchFilter.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      foodName: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-  onFilter: PropTypes.func.isRequired,
+  foods: PropTypes.array.isRequired,
+  setFilteredFoods: PropTypes.func.isRequired,
 };
 
 export default SearchFilter;
