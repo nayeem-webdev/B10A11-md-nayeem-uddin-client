@@ -4,10 +4,19 @@ import { useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useContext } from "react";
+
+import AuthContext from "../context/AuthContext";
+import { API } from "../api";
 
 const AddFoodPage = () => {
+  const { user } = useContext(AuthContext);
+  const { email, displayName, uid } = user || {};
+
+  // !! Auto Update Product Image
   const [imgUrl, setImgUrl] = useState("");
 
+  // %% Add Food Item
   const handleAddFoodItem = (e) => {
     e.preventDefault();
     const foodData = {
@@ -18,9 +27,13 @@ const AddFoodPage = () => {
       price: parseFloat(e.target.price.value),
       origin: e.target.origin.value,
       description: e.target.description.value,
+      email: email,
+      displayName: displayName,
+      uid: uid,
     };
-    console.log("Food Data:", foodData);
-    // Additional processing can be done here.
+    API.post("/all-foods", foodData)
+      .then((response) => console.log("Created Item:", response.data))
+      .catch((error) => console.error("Error Creating Item:", error.message));
   };
 
   return (

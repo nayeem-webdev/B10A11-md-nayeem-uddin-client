@@ -3,29 +3,28 @@ import { FaMapMarkerAlt, FaPizzaSlice } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const FoodSecCard = ({ food }) => {
+  const { _id, foodName, foodImage, category, origin, price, description } =
+    food || {};
   return (
     <div
-      key={food.id}
+      key={_id}
       className="bg-white shadow-lg rounded-lg overflow-hidden transition duration-300 hover:shadow-xl"
     >
       <img
-        src={food.image}
-        alt={food.name}
+        src={foodImage}
+        alt={foodName}
         className="w-full h-48 object-cover"
       />
       <div className="p-4">
-        <h3 className="text-xl font-semibold text-gray-800">{food.name}</h3>
+        <h3 className="text-xl font-semibold text-gray-800">{foodName}</h3>
         <div className="flex items-center text-sm text-gray-500 mb-2">
-          <FaPizzaSlice className="mr-2" /> {food.category}
-          <FaMapMarkerAlt className="ml-4 mr-2" /> {food.origin}
+          <FaPizzaSlice className="mr-2" /> {category}
+          <FaMapMarkerAlt className="ml-4 mr-2" /> {origin}
         </div>
-        <p className="text-gray-600 text-sm">{food.description}</p>
+        <p className="text-gray-600 text-sm">{description}</p>
         <div className="flex justify-between items-center mt-4">
-          <span className="text-lg font-bold text-primary">${food.price}</span>
-          <Link
-            to={`/food-details/${food.id}`}
-            className="text-primary text-sm"
-          >
+          <span className="text-lg font-bold text-primary">${price}</span>
+          <Link to={`/food-details/${_id}`} className="text-primary text-sm">
             <button className="bg-accent text-white px-4 py-2 rounded-lg hover:bg-primary transition duration-300">
               Details
             </button>
