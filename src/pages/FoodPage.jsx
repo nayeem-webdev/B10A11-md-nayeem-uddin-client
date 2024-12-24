@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "react-router-dom";
 const ProductPage = () => {
   const food = useLoaderData().data;
   const {
-    // _id,
+    _id,
     foodName,
     foodImage,
     quantity,
@@ -63,9 +63,12 @@ const ProductPage = () => {
           {description}
         </p>
 
-        <button className="mt-3 w-full  bg-primary text-white py-3 rounded-full hover:bg-accent transition flex justify-center items-center gap-2 font-bold">
-          ADD TO CART
-        </button>
+        <Link
+          to={`/food-purchase/${_id}`}
+          className="mt-3 w-full  bg-primary text-white py-3 rounded-full hover:bg-accent transition flex justify-center items-center gap-2 font-bold"
+        >
+          PURCHASE FOOD
+        </Link>
       </div>
     </div>
   );
