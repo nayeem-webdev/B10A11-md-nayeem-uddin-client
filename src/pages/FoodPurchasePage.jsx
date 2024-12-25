@@ -8,7 +8,14 @@ import AuthContext from "../context/AuthContext";
 
 const FoodPurchasePage = () => {
   const food = useLoaderData().data;
-  const { _id, foodName, foodImage, price, quantity } = food || {};
+  const {
+    _id,
+    foodName,
+    foodImage,
+    price,
+    quantity,
+    uid: sellerID,
+  } = food || {};
 
   const [total, setTotal] = useState(price);
   const handleAddQty = (e) => {
@@ -16,7 +23,7 @@ const FoodPurchasePage = () => {
     setTotal(qty * price);
   };
   const { user } = useContext(AuthContext);
-  const { displayName, email } = user || {};
+  const { displayName, email, uid: buyerID } = user || {};
   const handlePurchase = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -30,13 +37,19 @@ const FoodPurchasePage = () => {
       buyerName: displayName,
       buyerEmail: email,
       buyingDate: Date.now(),
+      sellerID,
+      buyerID,
       address,
       mobileNo,
       purchaseCount,
       orderStatus: "pending",
     };
 
-    console.log(purchaseData);
+    API.post("/orders", purchaseData)
+      .then((response) => console.log("Created Item:", response.data))
+      .catch((error) => console.error("Error Creating Item:", error.message));
+
+      //!! update the data of product 
   };
 
   return (

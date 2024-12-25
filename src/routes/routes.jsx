@@ -52,6 +52,7 @@ const routes = createBrowserRouter([
       {
         path: "/gallery",
         element: <Gallery />,
+        loader: () => API.get(`/gallery`),
       },
       {
         path: "/login",
