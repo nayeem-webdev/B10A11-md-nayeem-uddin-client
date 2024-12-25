@@ -1,12 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
-import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
+import { FaBars, FaMoon, FaSun, FaTimes, FaUser } from "react-icons/fa";
 import { useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { Tooltip } from "react-tooltip";
 
 const Navbar = () => {
   const { user, logoutUser, setUser } = useContext(AuthContext);
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Logout User
@@ -21,6 +21,51 @@ const Navbar = () => {
 
   return (
     <nav className="shadow-md">
+      <Tooltip
+        anchorSelect="#navUser"
+        clickable
+        className="z-50 !p-0 !bg-transparent !bg-opacity-100 !shadow-none !outline-none	"
+      >
+        <div className="flex flex-col bg-black text-white rounded-md p-4 ">
+          {user && (
+            <>
+              <Link to={"/account"} className="flex items-center gap-3 mb-4">
+                <img
+                  src={
+                    user?.photoURL ||
+                    "https://i.ibb.co/nRm6fz9/Png-Item-5067022.png"
+                  }
+                  alt="Profile"
+                  className="w-12 h-12 rounded-full border-2 border-gray-300"
+                />
+                <div>
+                  <h4 className="text-sm font-medium">
+                    {user?.displayName || "User Name"}
+                  </h4>
+                </div>
+              </Link>
+              <Link
+                to={"/account/my-orders"}
+                className="mt-2 px-4 py-2 w-full text-sm font-medium text-center rounded-md bg-primary text-white hover:bg-accent transition"
+              >
+                My Orders
+              </Link>
+              <Link
+                to={"/account/my-foods"}
+                className="mt-2 px-4 py-2 w-full text-sm font-medium text-center rounded-md bg-primary text-white hover:bg-accent transition"
+              >
+                My Foods
+              </Link>
+              <Link
+                to={"/add-food"}
+                className="mt-2 px-4 py-2 w-full text-sm font-medium text-center rounded-md bg-primary text-white hover:bg-accent transition"
+              >
+                Add Food
+              </Link>
+            </>
+          )}
+        </div>
+      </Tooltip>
       <div className="container mx-auto px-4 flex justify-between items-center h-16">
         {/* Mobile Menu Button */}
         <div className="md:hidden">
@@ -77,8 +122,22 @@ const Navbar = () => {
 
         {/* Profile and Login/Logout */}
         <div className="flex items-center space-x-4">
-          {/* Profile Icon */}
-          {user && <FaUserCircle className="text-2xl " />}
+          {user && (
+            <button>
+              <FaUser
+                id="navUser"
+                className="text-accent 0text-white hover:text-primary"
+              />
+            </button>
+          )}
+
+          {/* <button onClick={toggleDarkMode} className="focus:outline-none">
+            {darkMode ? (
+              <FaSun className="text-black 0text-white hover:text-primary" />
+            ) : (
+              <FaMoon className="text-black 0text-white hover:text-primary" />
+            )}
+          </button> */}
 
           {/* Login/Logout Button */}
           {!user ? (

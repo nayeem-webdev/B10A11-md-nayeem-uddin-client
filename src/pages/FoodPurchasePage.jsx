@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
-import { useLoaderData, Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { toast } from "react-toastify";
+import { useLoaderData } from "react-router-dom";
+// import { toast } from "react-toastify";
 import Title from "../components/Title";
 import { API } from "../api";
 import AuthContext from "../context/AuthContext";
@@ -45,10 +44,11 @@ const FoodPurchasePage = () => {
       orderStatus: "pending",
     };
 
-    API.post("/orders", purchaseData)
-      .catch((error) => console.error("Error Creating Item:", error.message));
+    API.post("/orders", purchaseData).catch((error) =>
+      console.error("Error Creating Item:", error.message)
+    );
 
-      //!! update the data of product 
+    //!! update the data of product
   };
 
   return (
@@ -158,10 +158,6 @@ const FoodPurchasePage = () => {
       </div>
     </>
   );
-};
-
-FoodPurchasePage.propTypes = {
-  food: PropTypes.object.isRequired,
 };
 
 export default FoodPurchasePage;

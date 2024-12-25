@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { FaCross, FaEye, FaShoppingCart, FaTimes } from "react-icons/fa";
+import { FaEye, FaShoppingCart, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const GalleryCard = ({ food }) => {
@@ -53,19 +53,19 @@ const GalleryCard = ({ food }) => {
           <span className="text-xs mt-2 italic">Posted by: {postedBy}</span>
 
           <div className="flex gap-3 mt-3">
-          <button
-            onClick={() => setOpenImage(true)}
-            className="mt-3 bg-primary text-white py-3 px-5 rounded-md hover:bg-accent transition flex justify-center items-center gap-2 font-bold"
-          >
-            <FaEye />
-          </button>
+            <button
+              onClick={() => setOpenImage(true)}
+              className="mt-3 bg-primary text-white py-3 px-5 rounded-md hover:bg-accent transition flex justify-center items-center gap-2 font-bold"
+            >
+              <FaEye />
+            </button>
 
-          <Link
-            to={`/food-purchase/${_id}`}
-            className="mt-3 bg-primary text-white py-3 px-5 rounded-md hover:bg-accent transition flex justify-center items-center gap-2 font-bold"
-          >
-            <FaShoppingCart />
-          </Link>
+            <Link
+              to={`/food-purchase/${_id}`}
+              className="mt-3 bg-primary text-white py-3 px-5 rounded-md hover:bg-accent transition flex justify-center items-center gap-2 font-bold"
+            >
+              <FaShoppingCart />
+            </Link>
           </div>
         </div>
       </div>

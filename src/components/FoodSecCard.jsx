@@ -36,7 +36,7 @@ const FoodSecCard = ({ food }) => {
 };
 
 FoodSecCard.propTypes = {
-  food: PropTypes.string,
+  food: PropTypes.object.isRequired,
 };
 
 export default FoodSecCard;
