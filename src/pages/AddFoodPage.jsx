@@ -33,8 +33,7 @@ const AddFoodPage = () => {
       purchaseCount: 0,
     };
     API.post("/all-foods", foodData)
-      .then((response) => console.log("Created Item:", response.data))
-      .catch((error) => console.error("Error Creating Item:", error.message));
+      .catch((err) => console.error("Error Creating Item:", err.message));
   };
 
   return (

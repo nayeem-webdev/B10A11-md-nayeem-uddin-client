@@ -4,7 +4,6 @@ import GalleryCard from "../components/GalleryCard";
 
 const Gallery = () => {
   const foods = useLoaderData().data;
-  console.log(foods);
   return (
     <>
       <Title

@@ -46,7 +46,6 @@ const FoodPurchasePage = () => {
     };
 
     API.post("/orders", purchaseData)
-      .then((response) => console.log("Created Item:", response.data))
       .catch((error) => console.error("Error Creating Item:", error.message));
 
       //!! update the data of product 
