@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import ErrorPage from "../pages/ErrorPage";
 import AddFoodPage from "../pages/AddFoodPage";
@@ -12,6 +12,9 @@ import Home from "../pages/Home";
 import FoodPage from "../pages/FoodPage";
 import { API } from "../api";
 import FoodPurchasePage from "../pages/FoodPurchasePage";
+import MyOrders from "../components/MyOrders";
+import MyPurchase from "../components/MyPurchase";
+import MyFoods from "../components/MyFoods";
 
 const routes = createBrowserRouter([
   {
@@ -69,6 +72,24 @@ const routes = createBrowserRouter([
             <Account />
           </PrivateRoutes>
         ),
+        children: [
+          {
+            index: true,
+            element: <Navigate to="my-foods" replace />,
+          },
+          {
+            path: "my-foods",
+            element: <MyFoods />,
+          },
+          {
+            path: "my-orders",
+            element: <MyOrders />,
+          },
+          {
+            path: "my-purchase",
+            element: <MyPurchase />,
+          },
+        ],
       },
     ],
   },

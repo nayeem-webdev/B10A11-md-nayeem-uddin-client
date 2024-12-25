@@ -1,14 +1,10 @@
 import PropTypes from "prop-types";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 
 const FoodCard = ({ food }) => {
   const { _id, foodName, foodImage, category, origin, price, description } =
     food || {};
-  const addToCart = (foodName) => {
-    toast.success(`${foodName} added to cart!`);
-  };
   return (
     <div className="bg-white shadow-md rounded-lg p-4 max-w-xs sm:max-w-full">
       <img
@@ -30,13 +26,13 @@ const FoodCard = ({ food }) => {
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold text-gray-800">${price}</span>
           <div className="flex space-x-2">
-            <button
-              onClick={() => addToCart(foodName)}
+            <Link
+              to={`/food-purchase/${_id}`}
               className="bg-primary text-white p-2 rounded-md hover:bg-primary/70"
               title="Add to Cart"
             >
               <FaShoppingCart size={20} />
-            </button>
+            </Link>
             <Link
               to={`/food/${_id}`}
               className="bg-accent text-white p-2 rounded-md hover:bg-accent/70"
