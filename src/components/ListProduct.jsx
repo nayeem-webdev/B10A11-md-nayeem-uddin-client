@@ -73,7 +73,7 @@ const ListProduct = () => {
         </div>
         <div className="w-full xl:w-1/2 mb-8 xl:mb-0 flex flex-col">
           <img
-            src="/assets/products-image.jpg" // Your image path
+            src="/assets/products-image.jpg"
             alt="Vendor's Business"
             className="w-full h-auto object-cover rounded-xl shadow-xl"
           />
@@ -91,7 +91,7 @@ const ListProduct = () => {
 };
 
 ListProduct.propTypes = {
-  imagePath: PropTypes.string, // Optional image prop (path)
+  imagePath: PropTypes.string,
 };
 
 export default ListProduct;

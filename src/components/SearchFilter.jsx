@@ -13,7 +13,7 @@ const SearchFilter = ({ foods, setFilteredFoods }) => {
         food.price <= priceRange
     );
 
-    // Apply Sort
+    // Sorting
     if (sortOrder === "asc") {
       filteredFoods = filteredFoods.sort((a, b) => a.price - b.price);
     } else if (sortOrder === "desc") {

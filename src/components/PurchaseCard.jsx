@@ -9,8 +9,7 @@ const PurchaseCard = ({ food }) => {
     orderStatus,
     buyingDate,
   } = food || {};
-
-  // Convert timestamp to a human-readable date
+// Time Converter
   const formattedDate = buyingDate
     ? new Intl.DateTimeFormat("en-US", {
         year: "numeric",

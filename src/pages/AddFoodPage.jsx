@@ -35,7 +35,7 @@ const AddFoodPage = () => {
     };
     API.post("/all-foods", foodData)
       .then(() => {
-        toast.success("1 Food Item Added!");
+        toast.success("Food Item Added!");
         navigate("/account");
       })
       .catch((err) => {

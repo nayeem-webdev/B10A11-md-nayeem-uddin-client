@@ -19,7 +19,7 @@ const MyFoods = () => {
   const handleDelete = (id) => {
     API.delete(`/all-foods/del/${id}`)
       .then(() => {
-        toast.success("1 Item Deleted Successfully");
+        toast.success("Item Deleted Successfully");
         const newFoods = foods.filter((f) => f._id !== id);
         setFoods(newFoods);
       })

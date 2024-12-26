@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
-// import { toast } from "react-toastify";
 import Title from "../components/Title";
 import { API } from "../api";
 import AuthContext from "../context/AuthContext";
@@ -55,8 +54,6 @@ const FoodPurchasePage = () => {
         navigate("/all-foods");
       })
       .catch((error) => console.error("Error Creating Item:", error.message));
-
-    //!! update the data of product
   };
 
   return (
