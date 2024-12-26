@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
 import Title from "../components/Title";
 import { API } from "../api";
 import AuthContext from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const FoodPurchasePage = () => {
+  const navigate = useNavigate();
   const food = useLoaderData().data;
   const {
     _id,
@@ -13,6 +15,7 @@ const FoodPurchasePage = () => {
     foodImage,
     price,
     quantity,
+    displayName: sellerName,
     uid: sellerID,
   } = food || {};
 
@@ -31,11 +34,13 @@ const FoodPurchasePage = () => {
     const purchaseCount = form.purchaseCount.value;
     const purchaseData = {
       foodId: _id,
-      foodName: foodName,
+      foodName,
+      foodImage,
       totalPrice: total,
       buyerName: displayName,
       buyerEmail: email,
       buyingDate: Date.now(),
+      sellerName,
       sellerID,
       buyerID,
       address,
@@ -44,9 +49,12 @@ const FoodPurchasePage = () => {
       orderStatus: "pending",
     };
 
-    API.post("/orders", purchaseData).catch((error) =>
-      console.error("Error Creating Item:", error.message)
-    );
+    API.post("/orders", purchaseData)
+      .then(() => {
+        toast.success("1 Product Added Successfully");
+        navigate("/all-foods");
+      })
+      .catch((error) => console.error("Error Creating Item:", error.message));
 
     //!! update the data of product
   };

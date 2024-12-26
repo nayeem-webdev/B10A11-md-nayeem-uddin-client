@@ -2,16 +2,17 @@ import { Helmet } from "react-helmet";
 import { FaUpload, FaUtensils } from "react-icons/fa";
 import { useState } from "react";
 import { Tooltip } from "react-tooltip";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { useContext } from "react";
 
 import AuthContext from "../context/AuthContext";
 import { API } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const AddFoodPage = () => {
   const { user } = useContext(AuthContext);
   const { email, displayName, uid } = user || {};
+  const navigate = useNavigate();
 
   // !! Auto Update Product Image
   const [imgUrl, setImgUrl] = useState("");
@@ -33,7 +34,14 @@ const AddFoodPage = () => {
       purchaseCount: 0,
     };
     API.post("/all-foods", foodData)
-      .catch((err) => console.error("Error Creating Item:", err.message));
+      .then(() => {
+        toast.success("1 Food Item Added!");
+        navigate("/account");
+      })
+      .catch((err) => {
+        console.error("Error Creating Item:", err.message);
+        toast.error("Failed to Add Item!");
+      });
   };
 
   return (
@@ -214,8 +222,6 @@ const AddFoodPage = () => {
           </form>
         </div>
       </div>
-
-      <ToastContainer position="top-center" autoClose={3000} />
     </>
   );
 };

@@ -6,10 +6,10 @@ import { ToastContainer } from "react-toastify";
 const MainLayout = () => {
   return (
     <>
+      <ToastContainer />
       <Navbar />
       <Outlet />
       <Footer />
-      <ToastContainer />
     </>
   );
 };

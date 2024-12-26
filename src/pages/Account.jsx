@@ -7,7 +7,7 @@ const Account = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <div className="container mx-auto min-h-screen py-[72px] lg:flex mt-5 gap-6 px-6">
+    <div className="container mx-auto min-h-screen lg:flex mt-5 gap-6 px-6">
       <div className="lg:w-2/3">
         {/* Account Section */}
         <div className="rounded-lg bg-gray-50 0bg-white/20 p-6">
@@ -28,10 +28,10 @@ const Account = () => {
               </p>
               <p className="text-gray-500 0text-gray-300 mt-1">{user?.email}</p>
               <p className="mt-3 text-gray-700 0text-gray-400">
-                I am a seller.
+                I am a HUMAN not AI
               </p>
               <Link
-                to="/add-product"
+                to="/add-food"
                 className="mt-3 w-full max-w-xs  bg-primary 0bg-white text-white 0text-black py-2 rounded-md font-medium hover:bg-primary/70 0hover:bg-white/70 transition flex justify-center items-center gap-2"
               >
                 Add A Product
