@@ -51,7 +51,7 @@ const FoodPurchasePage = () => {
 
     API.post("/orders", purchaseData)
       .then(() => {
-        toast.success("1 Product Added Successfully");
+        toast.success("Purchase Successful");
         navigate("/all-foods");
       })
       .catch((error) => console.error("Error Creating Item:", error.message));

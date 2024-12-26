@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import { FaTrash } from "react-icons/fa";
+import { GrDocumentUpdate } from "react-icons/gr";
+import { TbListDetails } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
 const FoodProfileCard = ({ food, handleDelete }) => {
@@ -27,20 +29,27 @@ const FoodProfileCard = ({ food, handleDelete }) => {
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold text-gray-800">${price}</span>
           <div className="flex space-x-2">
+            <Link
+              to={`/food/${_id}`}
+              className="bg-primary text-white p-2 rounded-md hover:bg-primary/70"
+              title="View Details"
+            >
+              <TbListDetails />
+            </Link>
+            <Link
+              to={`/update-food/${_id}`}
+              className="bg-accent text-white p-2 rounded-md hover:bg-accent/70"
+              title="Update"
+            >
+              <GrDocumentUpdate size={20} />
+            </Link>
             <button
               onClick={() => handleDelete(_id)}
-              className="bg-primary text-white p-2 rounded-md hover:bg-primary/70"
+              className="bg-accent text-white p-2 rounded-md hover:bg-accent/70"
               title="Add to Cart"
             >
               <FaTrash size={20} />
             </button>
-            <Link
-              to={`/food/${_id}`}
-              className="bg-accent text-white p-2 rounded-md hover:bg-accent/70"
-              title="View Details"
-            >
-              Details
-            </Link>
           </div>
         </div>
       </div>

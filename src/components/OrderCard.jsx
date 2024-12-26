@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
+import { FaTrash } from "react-icons/fa";
 
-const OrderCard = ({ food }) => {
+const OrderCard = ({ food, handleDelete }) => {
   const {
     foodName,
     foodImage,
@@ -10,6 +11,7 @@ const OrderCard = ({ food }) => {
     buyerEmail,
     address,
     mobileNo,
+    _id,
   } = food || {};
 
   const formattedDate = buyingDate
@@ -34,6 +36,7 @@ const OrderCard = ({ food }) => {
 
       <div className="col-span-2 text-center sm:text-left">
         <h3 className="text-lg font-semibold">{foodName}</h3>
+        <div className=" text-accent font-bold text-lg">${totalPrice}</div>
         <p className="text-sm text-gray-500 mt-1">
           Ordered on: {formattedDate}
         </p>
@@ -47,15 +50,19 @@ const OrderCard = ({ food }) => {
         <p>{mobileNo}</p>
       </div>
 
-      <div className="text-center text-blue-600 font-bold text-lg">
-        ${totalPrice}
-      </div>
+      <button
+        className="flex justify-center "
+        onClick={() => handleDelete(_id)}
+      >
+        <FaTrash className="text-xl text-primary hover:text-2xl hover-text-primary/70 transition-all" />
+      </button>
     </div>
   );
 };
 
 OrderCard.propTypes = {
   food: PropTypes.object.isRequired,
+  handleDelete: PropTypes.func,
 };
 
 export default OrderCard;

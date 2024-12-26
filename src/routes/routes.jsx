@@ -15,6 +15,7 @@ import FoodPurchasePage from "../pages/FoodPurchasePage";
 import MyOrders from "../components/MyOrders";
 import MyPurchase from "../components/MyPurchase";
 import MyFoods from "../components/MyFoods";
+import UpdateFoodPage from "../pages/UpdateFoodPage";
 
 const routes = createBrowserRouter([
   {
@@ -50,6 +51,11 @@ const routes = createBrowserRouter([
             <FoodPurchasePage />
           </PrivateRoutes>
         ),
+        loader: ({ params }) => API.get(`/food/${params.id}`),
+      },
+      {
+        path: "/update-food/:id",
+        element: <UpdateFoodPage />,
         loader: ({ params }) => API.get(`/food/${params.id}`),
       },
       {

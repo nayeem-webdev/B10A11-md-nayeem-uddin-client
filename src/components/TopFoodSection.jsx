@@ -8,7 +8,7 @@ const TopFoodsSection = () => {
   const [foods, setFoods] = useState([]);
 
   useEffect(() => {
-    API.get("/all-foods/0")
+    API.get("/all-foods/most-sell")
       .then((res) => {
         setFoods(res.data);
       })
