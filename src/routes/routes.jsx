@@ -85,15 +85,27 @@ const routes = createBrowserRouter([
           },
           {
             path: "my-foods",
-            element: <MyFoods />,
+            element: (
+              <PrivateRoutes>
+                <MyFoods />
+              </PrivateRoutes>
+            ),
           },
           {
             path: "my-orders",
-            element: <MyOrders />,
+            element: (
+              <PrivateRoutes>
+                <MyOrders />,
+              </PrivateRoutes>
+            ),
           },
           {
             path: "my-purchase",
-            element: <MyPurchase />,
+            element: (
+              <PrivateRoutes>
+                <MyPurchase />
+              </PrivateRoutes>
+            ),
           },
         ],
       },
