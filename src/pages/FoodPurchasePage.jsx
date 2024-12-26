@@ -13,7 +13,8 @@ const FoodPurchasePage = () => {
     foodName,
     foodImage,
     price,
-    quantity,
+    quantity: qty,
+    purchaseCount,
     displayName: sellerName,
     uid: sellerID,
   } = food || {};
@@ -30,7 +31,11 @@ const FoodPurchasePage = () => {
     const form = e.target;
     const address = form.address.value;
     const mobileNo = form.mobileNo.value;
-    const purchaseCount = form.purchaseCount.value;
+    const quantity = parseInt(form.purchaseCount.value);
+
+    const updatedPurchaseCount = purchaseCount + quantity;
+    const updatedQTY = qty - quantity;
+
     const purchaseData = {
       foodId: _id,
       foodName,
@@ -44,16 +49,34 @@ const FoodPurchasePage = () => {
       buyerID,
       address,
       mobileNo,
-      purchaseCount,
+      quantity,
       orderStatus: "pending",
     };
 
     API.post("/orders", purchaseData)
       .then(() => {
-        toast.success("Purchase Successful");
-        navigate("/all-foods");
+        API.patch(
+          `/all-foods/patch/${_id}`,
+          { purchaseCount: updatedPurchaseCount, quantity: updatedQTY },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+          .then(() => {
+            toast.success("Purchase Successful");
+            navigate("/all-foods");
+          })
+          .catch((err) => {
+            console.error("Error updating product:", err);
+            toast.error("Failed Purchase");
+          });
       })
-      .catch((error) => console.error("Error Creating Item:", error.message));
+      .catch((error) => {
+        console.error("Error Creating Item:", error.message);
+        toast.error("Failed Purchase");
+      });
   };
 
   return (
@@ -74,7 +97,7 @@ const FoodPurchasePage = () => {
             {foodName}
           </h2>
           <p className="text-2xl font-semibold text-gray-600 mt-2">${price}</p>
-          <p className="text-sm text-gray-500 mt-2">{quantity} in stock</p>
+          <p className="text-sm text-gray-500 mt-2">{qty} in stock</p>
         </div>
 
         {/* Purchase Form */}
@@ -101,7 +124,7 @@ const FoodPurchasePage = () => {
                 id="purchaseCount"
                 name="purchaseCount"
                 min="1"
-                max={quantity}
+                max={qty}
                 defaultValue="1"
                 className="w-20 p-2 border rounded-md text-gray-900 text-center"
                 onChange={handleAddQty}
