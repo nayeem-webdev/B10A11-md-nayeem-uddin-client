@@ -177,8 +177,14 @@ const FoodPurchasePage = () => {
 
           {/* Submit Btn */}
           <button
+            disabled={qty === 0}
             type="submit"
-            className="mt-8 w-full  bg-primary text-white py-3 rounded-full hover:bg-accent transition flex justify-center items-center gap-2 font-bold"
+            className={`mt-8 w-full py-3 rounded-full font-bold flex justify-center items-center gap-2 transition 
+            ${
+              qty === 0
+                ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                : "bg-primary text-white hover:bg-accent"
+            }`}
           >
             Purchase Now
           </button>
