@@ -3,6 +3,7 @@ import FoodSecCard from "./FoodSecCard";
 import { useState } from "react";
 import { API } from "../api";
 import { useEffect } from "react";
+import Loading from "../components/Loading"
 
 const TopFoodsSection = () => {
   const [foods, setFoods] = useState([]);
@@ -27,7 +28,7 @@ const TopFoodsSection = () => {
           ))}
         </div>
       ) : (
-        <>hello</>
+        <Loading />
       )}
 
       {/* See All Button */}
