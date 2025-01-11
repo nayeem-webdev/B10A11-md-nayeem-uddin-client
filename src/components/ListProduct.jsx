@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 
 const ListProduct = () => {
   return (
-    <section className="container mx-auto px-4 py-12">
+    <section className="container mx-auto px-4 py-28">
       <div className="flex flex-col-reverse xl:flex-row items-center justify-between gap-6">
         <div className="w-full xl:w-1/2 flex flex-col justify-center">
           <h2 className="text-3xl xl:text-4xl font-bold text-gray-800 mb-4">
-            Empower Your Business with DineFlow
+            Empower Your Business with{" "}
+            <span className="text-primary">Dine</span>Flow
           </h2>
           <p className="text-lg text-gray-600 mb-6">
             DineFlow makes restaurant management more efficient, giving vendors

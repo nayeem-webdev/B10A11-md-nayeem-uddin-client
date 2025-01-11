@@ -40,7 +40,7 @@ const AllFoods = () => {
           <Loading />
         </div>
       ) : filteredFoods.length > 0 ? (
-        <div className="container mx-auto py-16 px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+        <div className="container bg-gray-50 mx-auto py-16 px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredFoods.map((food) => (
             <FoodCard food={food} key={food._id} />
           ))}

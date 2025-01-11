@@ -16,12 +16,14 @@ const FoodSecCard = ({ food }) => {
         className="w-full h-48 object-cover"
       />
       <div className="p-4">
-        <h3 className="text-xl font-semibold text-gray-800">{foodName}</h3>
-        <div className="flex items-center text-sm text-gray-500 mb-2">
-          <FaPizzaSlice className="mr-2" /> {category}
-          <FaMapMarkerAlt className="ml-4 mr-2" /> {origin}
+        <h3 className="text-xl font-semibold text-gray-800 mb-2">{foodName}</h3>
+        <div className="flex items-center text-sm text-gray-500 mb-2 h-5 overflow-hidden">
+          <FaPizzaSlice className="mr-2" />
+          <span className=" h-5 overflow-hidden">{category}</span>
+          <FaMapMarkerAlt className="ml-4 mr-2" />
+          <span className=" h-5 overflow-hidden">{origin}</span>
         </div>
-        <p className="text-gray-600 text-sm">{description}</p>
+        <p className="text-gray-600 text-sm h-10">{description}</p>
         <div className="flex justify-between items-center mt-4">
           <span className="text-lg font-bold text-primary">${price}</span>
           <Link to={`/food/${_id}`} className="text-primary text-sm">

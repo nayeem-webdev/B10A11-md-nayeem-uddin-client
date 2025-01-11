@@ -3,7 +3,7 @@ import FoodSecCard from "./FoodSecCard";
 import { useState } from "react";
 import { API } from "../api";
 import { useEffect } from "react";
-import Loading from "../components/Loading"
+import Loading from "../components/Loading";
 
 const TopFoodsSection = () => {
   const [foods, setFoods] = useState([]);
@@ -17,12 +17,15 @@ const TopFoodsSection = () => {
   }, []);
 
   return (
-    <section className="container mx-auto py-16 px-6 min-h-screen">
-      <h2 className="text-3xl font-bold text-center mb-8">Top Foods</h2>
-
+    <section className="container mx-auto py-28 px-6 min-h-screen bg-gray-50">
+      <h2 className="text-3xl font-bold text-center mb-4">Top Foods</h2>
+      <p className="text-center mb-12 max-w-lg mx-auto">
+        From our table to yours: the taste that keeps them coming back, the
+        treat loved by many, and experiences that speak for themselves.
+      </p>
       {/* Food Items */}
       {foods.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {foods.map((food) => (
             <FoodSecCard food={food} key={food._id} />
           ))}

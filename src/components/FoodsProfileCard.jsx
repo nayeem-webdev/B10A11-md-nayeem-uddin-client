@@ -5,8 +5,7 @@ import { TbListDetails } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
 const FoodProfileCard = ({ food, handleDelete }) => {
-  const { _id, foodName, foodImage, category, origin, price, description } =
-    food || {};
+  const { _id, foodName, foodImage, price } = food || {};
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4 max-w-xs sm:max-w-full">
@@ -15,17 +14,9 @@ const FoodProfileCard = ({ food, handleDelete }) => {
         alt={foodName}
         className="w-full h-48 object-cover rounded-t-lg"
       />
-      <div className="p-4">
-        <h2 className="text-lg font-semibold text-gray-800">{foodName}</h2>
-        <p className="text-gray-600 text-sm mb-2">
-          <span className="font-bold">Category: </span>
-          {category}
-        </p>
-        <p className="text-gray-600 text-sm mb-2">
-          <span className="font-bold">Origin: </span>
-          {origin}
-        </p>
-        <p className="text-gray-600 text-sm mb-2">{description}</p>
+      <div className="pt-4">
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">{foodName}</h2>
+
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold text-gray-800">${price}</span>
           <div className="flex space-x-2">

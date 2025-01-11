@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   return (
-    <section className="container mx-auto px-4 py-12">
+    <section className="container mx-auto px-4 py-28">
       <div className="flex flex-col lg:flex-row items-center justify-between">
         <div className="flex-1 mb-8 lg:mb-0">
           <img

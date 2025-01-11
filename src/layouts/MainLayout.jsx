@@ -8,7 +8,9 @@ const MainLayout = () => {
     <>
       <ToastContainer />
       <Navbar />
-      <Outlet />
+      <div className="pt-[64px]">
+        <Outlet />
+      </div>
       <Footer />
     </>
   );

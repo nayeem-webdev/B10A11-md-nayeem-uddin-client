@@ -16,6 +16,7 @@ import MyOrders from "../components/MyOrders";
 import MyPurchase from "../components/MyPurchase";
 import MyFoods from "../components/MyFoods";
 import UpdateFoodPage from "../pages/UpdateFoodPage";
+import FoodServicePage from "../pages/FoodServicePage";
 
 const routes = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const routes = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/about-us",
+        element: <FoodServicePage />,
       },
       {
         path: "/signup",

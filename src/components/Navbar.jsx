@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { FaBars, FaMoon, FaSun, FaTimes, FaUser } from "react-icons/fa";
+import { FaBars, FaTimes, FaUser } from "react-icons/fa";
 import { useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { toast } from "react-toastify";
@@ -20,7 +20,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="shadow-md">
+    <nav className="shadow-md fixed z-50 bg-white w-full">
       <Tooltip
         anchorSelect="#navUser"
         clickable
@@ -108,6 +108,14 @@ const Navbar = () => {
           >
             Gallery
           </NavLink>
+          <NavLink
+            to="/about-us"
+            className={({ isActive }) =>
+              isActive ? "text-primary font-semibold" : " hover:text-primary"
+            }
+          >
+            About
+          </NavLink>
           {user && (
             <NavLink
               to="/account"
@@ -193,6 +201,17 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               GALLERY
+            </NavLink>
+            <NavLink
+              to="/about-us"
+              className={({ isActive }) =>
+                `font-semibold hover:text-primary ${
+                  isActive ? "text-primary" : "text-black"
+                }`
+              }
+              onClick={() => setIsMenuOpen(false)}
+            >
+              ABOUT
             </NavLink>
             {user && (
               <NavLink
